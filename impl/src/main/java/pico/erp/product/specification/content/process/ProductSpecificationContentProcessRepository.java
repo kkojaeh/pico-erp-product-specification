@@ -16,10 +16,11 @@ public interface ProductSpecificationContentProcessRepository {
 
   boolean exists(@NotNull ProductSpecificationContentProcessId id);
 
+  Stream<ProductSpecificationContentProcess> findAllBy(
+    @NotNull ProductSpecificationContentId contentId);
+
   Optional<ProductSpecificationContentProcess> findBy(
     @NotNull ProductSpecificationContentProcessId id);
-
-  Stream<ProductSpecificationContentProcess> findAllBy(@NotNull ProductSpecificationContentId contentId);
 
   void update(@NotNull ProductSpecificationContentProcess productSpecificationContentProcess);
 

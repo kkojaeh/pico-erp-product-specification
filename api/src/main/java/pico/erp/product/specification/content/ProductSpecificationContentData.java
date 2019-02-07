@@ -15,6 +15,8 @@ public class ProductSpecificationContentData {
 
   int revision;
 
+  String barcodeNumber;
+
   AttachmentId imageId;
 
   AttachmentId bluePrintId;

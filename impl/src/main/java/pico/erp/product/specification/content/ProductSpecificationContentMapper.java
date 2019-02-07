@@ -54,6 +54,7 @@ public abstract class ProductSpecificationContentMapper {
       .description(entity.getDescription())
       .committer(map(entity.getCommitterId()))
       .committedDate(entity.getCommittedDate())
+      .barcodeNumber(entity.getBarcodeNumber())
       .build();
   }
 

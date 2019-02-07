@@ -107,4 +107,7 @@ public class ProductSpecificationContentEntity implements Serializable {
   @Column(length = TypeDefinitions.CLOB_LENGTH)
   String description;
 
+  @Column(length = TypeDefinitions.EXTERNAL_ID_LENGTH)
+  String barcodeNumber;
+
 }

@@ -36,6 +36,8 @@ public class ProductSpecificationContent implements Serializable {
 
   int revision;
 
+  String barcodeNumber;
+
   AttachmentId imageId;
 
   AttachmentId bluePrintId;
@@ -65,6 +67,7 @@ public class ProductSpecificationContent implements Serializable {
     if (!isUpdatable()) {
       throw new ProductSpecificationContentExceptions.CannotUpdateException();
     }
+    this.barcodeNumber = request.getBarcodeNumber();
     this.imageId = request.getImageId();
     this.bluePrintId = request.getBluePrintId();
     this.description = request.getDescription();

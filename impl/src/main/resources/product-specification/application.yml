@@ -85,8 +85,3 @@ logging:
 
 flyway:
   enabled: false
-
-product-specification:
-  accepter-group:
-    id: prdr-accepter
-    name: 생산요청 접수자

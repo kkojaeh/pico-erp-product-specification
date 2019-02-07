@@ -16,7 +16,8 @@ interface ProductSpecificationContentProcessEntityRepository extends
   CrudRepository<ProductSpecificationContentProcessEntity, ProductSpecificationContentProcessId> {
 
   @Query("SELECT p FROM ProductSpecificationContentProcess p WHERE p.contentId = :contentId")
-  Stream<ProductSpecificationContentProcessEntity> findAllBy(@Param("contentId") ProductSpecificationContentId contentId);
+  Stream<ProductSpecificationContentProcessEntity> findAllBy(
+    @Param("contentId") ProductSpecificationContentId contentId);
 
 }
 
@@ -51,16 +52,16 @@ public class ProductSpecificationContentProcessRepositoryJpa implements
   }
 
   @Override
-  public Optional<ProductSpecificationContentProcess> findBy(
-    ProductSpecificationContentProcessId id) {
-    return Optional.ofNullable(repository.findOne(id))
+  public Stream<ProductSpecificationContentProcess> findAllBy(
+    ProductSpecificationContentId contentId) {
+    return repository.findAllBy(contentId)
       .map(mapper::jpa);
   }
 
   @Override
-  public Stream<ProductSpecificationContentProcess> findAllBy(
-    ProductSpecificationContentId contentId) {
-    return repository.findAllBy(contentId)
+  public Optional<ProductSpecificationContentProcess> findBy(
+    ProductSpecificationContentProcessId id) {
+    return Optional.ofNullable(repository.findOne(id))
       .map(mapper::jpa);
   }
 

@@ -8,8 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
-import pico.erp.product.specification.ProductSpecificationRequests;
-import pico.erp.product.specification.ProductSpecificationService;
 import pico.erp.shared.ApplicationInitializer;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

@@ -31,6 +31,20 @@ public class ProductSpecificationContentEventListener {
 
   @EventListener
   @JmsListener(destination = LISTENER_NAME + "."
+    + ProductSpecificationEvents.CommittedEvent.CHANNEL)
+  public void onProductSpecificationCommitted(ProductSpecificationEvents.CommittedEvent event) {
+    val specification = productSpecificationService.get(event.getProductSpecificationId());
+
+    productSpecificationContentService.commit(
+      ProductSpecificationContentRequests.CommitRequest.builder()
+        .id(specification.getContentId())
+        .committerId(event.getCommitterId())
+        .build()
+    );
+  }
+
+  @EventListener
+  @JmsListener(destination = LISTENER_NAME + "."
     + ProductSpecificationEvents.DraftedEvent.CHANNEL)
   public void onProductSpecificationDrafted(ProductSpecificationEvents.DraftedEvent event) {
     val specification = productSpecificationService.get(event.getProductSpecificationId());
@@ -62,6 +76,7 @@ public class ProductSpecificationContentEventListener {
 
     val builder = ProductSpecificationContentRequests.UpdateRequest.builder()
       .id(specification.getContentId())
+      .barcodeNumber(previous.getBarcodeNumber())
       .description(previous.getDescription());
 
     if (previous.getImageId() != null) {
@@ -79,20 +94,6 @@ public class ProductSpecificationContentEventListener {
     }
     productSpecificationContentService.update(
       builder.build()
-    );
-  }
-
-  @EventListener
-  @JmsListener(destination = LISTENER_NAME + "."
-    + ProductSpecificationEvents.CommittedEvent.CHANNEL)
-  public void onProductSpecificationCommitted(ProductSpecificationEvents.CommittedEvent event) {
-    val specification = productSpecificationService.get(event.getProductSpecificationId());
-
-    productSpecificationContentService.commit(
-      ProductSpecificationContentRequests.CommitRequest.builder()
-        .id(specification.getContentId())
-        .committerId(event.getCommitterId())
-        .build()
     );
   }
 

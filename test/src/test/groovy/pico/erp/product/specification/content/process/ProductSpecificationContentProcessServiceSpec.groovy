@@ -4,20 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Lazy
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.item.ItemId
 import pico.erp.product.specification.ProductSpecificationId
-import pico.erp.product.specification.ProductSpecificationRequests
 import pico.erp.product.specification.ProductSpecificationService
-import pico.erp.product.specification.content.ProductSpecificationContentExceptions
-import pico.erp.product.specification.content.ProductSpecificationContentId
-import pico.erp.product.specification.content.ProductSpecificationContentRequests
 import pico.erp.product.specification.content.ProductSpecificationContentService
 import pico.erp.shared.IntegrationConfiguration
-import pico.erp.user.UserId
 import spock.lang.Specification
 
 @SpringBootTest(classes = [IntegrationConfiguration])
@@ -57,7 +50,6 @@ class ProductSpecificationContentProcessServiceSpec extends Specification {
   }
 
 
-
   def "존재 - 아이디로 존재 확인"() {
     when:
     def exists = productSpecificationContentProcessService.exists(id)
@@ -89,8 +81,6 @@ class ProductSpecificationContentProcessServiceSpec extends Specification {
     then:
     thrown(ProductSpecificationContentProcessExceptions.NotFoundException)
   }
-
-
 
 
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.product.specification.content.ProductSpecificationContentExceptions;
 import pico.erp.product.specification.content.ProductSpecificationContentId;
 import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;

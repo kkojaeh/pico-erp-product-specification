@@ -6,13 +6,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
-import pico.erp.attachment.AttachmentRequests;
 import pico.erp.attachment.AttachmentService;
 import pico.erp.process.ProcessService;
-import pico.erp.product.specification.ProductSpecificationEvents;
 import pico.erp.product.specification.ProductSpecificationService;
 import pico.erp.product.specification.content.ProductSpecificationContentEvents;
-import pico.erp.product.specification.content.ProductSpecificationContentRequests;
 import pico.erp.product.specification.content.ProductSpecificationContentService;
 
 @SuppressWarnings("unused")
@@ -43,8 +40,28 @@ public class ProductSpecificationContentProcessEventListener {
 
   @EventListener
   @JmsListener(destination = LISTENER_NAME + "."
+    + ProductSpecificationContentEvents.CommittedEvent.CHANNEL)
+  public void onProductSpecificationContentCommitted(
+    ProductSpecificationContentEvents.CommittedEvent event) {
+    val content = productSpecificationContentService.get(event.getProductSpecificationContentId());
+    val contentProcesses = productSpecificationContentProcessService
+      .getAll(event.getProductSpecificationContentId());
+
+    contentProcesses.forEach(contentProcess -> {
+      val process = processService.get(contentProcess.getProcessId());
+      if (process.isUpdatable()) {
+        val updateRequest = process.toUpdate();
+        updateRequest.setInfo(contentProcess.getProcessInfo());
+        processService.update(updateRequest);
+      }
+    });
+  }
+
+  @EventListener
+  @JmsListener(destination = LISTENER_NAME + "."
     + ProductSpecificationContentEvents.CreatedEvent.CHANNEL)
-  public void onProductSpecificationContentCreated(ProductSpecificationContentEvents.CreatedEvent event) {
+  public void onProductSpecificationContentCreated(
+    ProductSpecificationContentEvents.CreatedEvent event) {
     val content = productSpecificationContentService.get(event.getProductSpecificationContentId());
     val specification = productSpecificationService.get(content.getSpecificationId());
     val processes = processService.getAll(specification.getItemId());
@@ -58,23 +75,6 @@ public class ProductSpecificationContentProcessEventListener {
           .processInfo(process.getInfo())
           .build()
       );
-    });
-  }
-
-  @EventListener
-  @JmsListener(destination = LISTENER_NAME + "."
-    + ProductSpecificationContentEvents.CommittedEvent.CHANNEL)
-  public void onProductSpecificationContentCommitted(ProductSpecificationContentEvents.CommittedEvent event) {
-    val content = productSpecificationContentService.get(event.getProductSpecificationContentId());
-    val contentProcesses = productSpecificationContentProcessService.getAll(event.getProductSpecificationContentId());
-
-    contentProcesses.forEach(contentProcess -> {
-      val process = processService.get(contentProcess.getProcessId());
-      if(process.isUpdatable()){
-        val updateRequest = process.toUpdate();
-        updateRequest.setInfo(contentProcess.getProcessInfo());
-        processService.update(updateRequest);
-      }
     });
   }
 
