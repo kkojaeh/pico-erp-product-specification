@@ -76,7 +76,6 @@ public class ProductSpecificationContentEventListener {
 
     val builder = ProductSpecificationContentRequests.UpdateRequest.builder()
       .id(specification.getContentId())
-      .barcodeNumber(previous.getBarcodeNumber())
       .description(previous.getDescription());
 
     if (previous.getImageId() != null) {

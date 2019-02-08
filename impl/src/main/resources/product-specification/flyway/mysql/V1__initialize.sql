@@ -15,7 +15,6 @@ create table psp_product_specification (
 
 create table psp_product_specification_content (
 	id binary(16) not null,
-	barcode_number varchar(100),
 	blue_print_id binary(16),
 	committed_date datetime,
 	committer_id varchar(50),

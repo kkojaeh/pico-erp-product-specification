@@ -46,9 +46,6 @@ public interface ProductSpecificationContentMessages {
     @Data
     class Request {
 
-      @Size(max = TypeDefinitions.EXTERNAL_ID_LENGTH)
-      String barcodeNumber;
-
       @Valid
       AttachmentId imageId;
 

@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import pico.erp.attachment.category.AttachmentCategory;
+import pico.erp.attachment.category.AttachmentCategory.AttachmentCategoryImpl;
+import pico.erp.attachment.category.AttachmentCategoryId;
 import pico.erp.audit.AuditConfiguration;
 import pico.erp.company.CompanyApi;
 import pico.erp.item.ItemApi;
@@ -61,6 +64,20 @@ public class ProductSpecificationApplication implements ApplicationStarter {
       ProcessApi.ID,
       CompanyApi.ID
     ).collect(Collectors.toSet());
+  }
+
+  @Public
+  @Bean
+  public AttachmentCategory bluePrintAttachmentCategory() {
+    return new AttachmentCategoryImpl(AttachmentCategoryId.from("product-specification-blue-print"),
+      "품목 사양서 도면");
+  }
+
+  @Public
+  @Bean
+  public AttachmentCategory imageAttachmentCategory() {
+    return new AttachmentCategoryImpl(AttachmentCategoryId.from("product-specification-image"),
+      "품목 사양서 이미지");
   }
 
   @Override
