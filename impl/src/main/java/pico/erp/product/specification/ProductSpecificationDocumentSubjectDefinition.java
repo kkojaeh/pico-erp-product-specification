@@ -78,32 +78,48 @@ public class ProductSpecificationDocumentSubjectDefinition implements
     if (content.getBluePrintId() != null) {
       val bluePrints = attachmentItemService.getAll(content.getBluePrintId()).stream()
         .filter(item -> item.getContentType().startsWith("image/"))
-        .map(item ->
-          ContentInputStream.builder()
-            .contentLength(item.getContentLength())
-            .contentType(item.getContentType())
-            .inputStream(
-              attachmentItemService.access(
-                new AttachmentItemRequests.DirectAccessRequest(item.getId())
-              )
-            ).build()
-        ).collect(Collectors.toList());
+        .map(item -> {
+          val encoded = context.getContentEncoder().apply(
+            ContentInputStream.builder()
+              .contentLength(item.getContentLength())
+              .contentType(item.getContentType())
+              .name(item.getName())
+              .inputStream(
+                attachmentItemService.access(
+                  new AttachmentItemRequests.DirectAccessRequest(item.getId())
+                )
+              ).build()
+          );
+          val map = new HashMap<String, Object>();
+          map.put("name", item.getName());
+          map.put("data", encoded);
+          return map;
+        })
+        .collect(Collectors.toList());
       data.put("bluePrints", bluePrints);
     }
 
     if (content.getImageId() != null) {
       val images = attachmentItemService.getAll(content.getImageId()).stream()
         .filter(item -> item.getContentType().startsWith("image/"))
-        .map(item ->
-          ContentInputStream.builder()
-            .contentLength(item.getContentLength())
-            .contentType(item.getContentType())
-            .inputStream(
-              attachmentItemService.access(
-                new AttachmentItemRequests.DirectAccessRequest(item.getId())
-              )
-            ).build()
-        ).collect(Collectors.toList());
+        .map(item -> {
+          val encoded = context.getContentEncoder().apply(
+            ContentInputStream.builder()
+              .contentLength(item.getContentLength())
+              .contentType(item.getContentType())
+              .name(item.getName())
+              .inputStream(
+                attachmentItemService.access(
+                  new AttachmentItemRequests.DirectAccessRequest(item.getId())
+                )
+              ).build()
+          );
+          val map = new HashMap<String, Object>();
+          map.put("name", item.getName());
+          map.put("data", encoded);
+          return map;
+        })
+        .collect(Collectors.toList());
       data.put("images", images);
     }
 
