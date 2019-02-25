@@ -76,7 +76,8 @@ public class ProductSpecificationDocumentSubjectDefinition implements
     val content = productSpecificationContentService.get(spec.getContentId());
 
     if (content.getBluePrintId() != null) {
-      val bluePrints = attachmentItemService.getAll(content.getBluePrintId()).stream()
+      List<Map<String, Object>> bluePrints = attachmentItemService.getAll(content.getBluePrintId())
+        .stream()
         .filter(item -> item.getContentType().startsWith("image/"))
         .map(item -> {
           val encoded = context.getContentEncoder().apply(
@@ -100,7 +101,7 @@ public class ProductSpecificationDocumentSubjectDefinition implements
     }
 
     if (content.getImageId() != null) {
-      val images = attachmentItemService.getAll(content.getImageId()).stream()
+      List<Map<String, Object>> images = attachmentItemService.getAll(content.getImageId()).stream()
         .filter(item -> item.getContentType().startsWith("image/"))
         .map(item -> {
           val encoded = context.getContentEncoder().apply(
