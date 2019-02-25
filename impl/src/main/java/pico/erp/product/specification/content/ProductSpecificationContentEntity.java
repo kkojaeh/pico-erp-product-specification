@@ -27,6 +27,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pico.erp.attachment.AttachmentId;
+import pico.erp.document.DocumentId;
 import pico.erp.product.specification.ProductSpecificationId;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.Auditor;
@@ -106,5 +107,10 @@ public class ProductSpecificationContentEntity implements Serializable {
   @Lob
   @Column(length = TypeDefinitions.CLOB_LENGTH)
   String description;
+
+  @AttributeOverrides({
+    @AttributeOverride(name = "value", column = @Column(name = "DOCUMENT_ID", length = TypeDefinitions.UUID_BINARY_LENGTH))
+  })
+  DocumentId documentId;
 
 }

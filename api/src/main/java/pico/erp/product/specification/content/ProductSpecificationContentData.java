@@ -3,6 +3,7 @@ package pico.erp.product.specification.content;
 import java.time.OffsetDateTime;
 import lombok.Data;
 import pico.erp.attachment.AttachmentId;
+import pico.erp.document.DocumentId;
 import pico.erp.product.specification.ProductSpecificationId;
 import pico.erp.user.UserId;
 
@@ -26,5 +27,7 @@ public class ProductSpecificationContentData {
   OffsetDateTime committedDate;
 
   boolean updatable;
+
+  DocumentId documentId;
 
 }

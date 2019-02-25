@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pico.erp.document.DocumentId;
 import pico.erp.product.specification.ProductSpecificationId;
 import pico.erp.user.UserId;
 
@@ -23,6 +24,8 @@ public class ProductSpecificationContentView {
   OffsetDateTime committedDate;
 
   OffsetDateTime createdDate;
+
+  DocumentId documentId;
 
   @Data
   @NoArgsConstructor

@@ -2,9 +2,15 @@ package pico.erp.product.specification.content;
 
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import pico.erp.document.DocumentId;
+import pico.erp.document.DocumentRequests;
+import pico.erp.document.DocumentService;
+import pico.erp.item.ItemService;
+import pico.erp.product.specification.ProductSpecificationDocumentSubjectDefinition;
 import pico.erp.product.specification.content.ProductSpecificationContentRequests.CommitRequest;
 import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
@@ -25,11 +31,34 @@ public class ProductSpecificationContentServiceLogic implements ProductSpecifica
   @Autowired
   private ProductSpecificationContentMapper mapper;
 
+  @Lazy
+  @Autowired
+  private DocumentService documentService;
+
+  @Lazy
+  @Autowired
+  private ItemService itemService;
+
   @Override
   public void commit(CommitRequest request) {
     val content = productSpecificationContentRepository.findBy(request.getId())
       .orElseThrow(ProductSpecificationContentExceptions.NotFoundException::new);
-    val response = content.apply(mapper.map(request));
+    val message = mapper.map(request);
+    if (content.isCommittable()) {
+      val documentId = DocumentId.generate();
+      val item = itemService.get(content.getSpecification().getItemId());
+      documentService.create(
+        DocumentRequests.CreateRequest.builder()
+          .id(documentId)
+          .subjectId(ProductSpecificationDocumentSubjectDefinition.ID)
+          .name(String.format("SPEC-%s-%s", item.getCode().getValue(), item.getName()))
+          .key(content.getSpecification().getId())
+          .creatorId(request.getCommitterId())
+          .build()
+      );
+      message.setDocumentId(documentId);
+    }
+    val response = content.apply(message);
     productSpecificationContentRepository.update(content);
     eventPublisher.publishEvents(response.getEvents());
   }

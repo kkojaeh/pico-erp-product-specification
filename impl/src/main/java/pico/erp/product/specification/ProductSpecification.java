@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
-import pico.erp.item.ItemData;
+import pico.erp.item.ItemId;
 import pico.erp.product.specification.content.ProductSpecificationContentId;
 
 /**
@@ -30,7 +30,7 @@ public class ProductSpecification implements Serializable {
   @Id
   ProductSpecificationId id;
 
-  ItemData item;
+  ItemId itemId;
 
   ProductSpecificationContentId contentId;
 
@@ -44,7 +44,7 @@ public class ProductSpecification implements Serializable {
   public ProductSpecificationMessages.Draft.Response apply(
     ProductSpecificationMessages.Draft.Request request) {
     this.id = request.getId();
-    this.item = request.getItem();
+    this.itemId = request.getItemId();
     this.status = ProductSpecificationStatusKind.DRAFTING;
     this.contentId = ProductSpecificationContentId.generate();
     this.revision = 1;
@@ -78,7 +78,7 @@ public class ProductSpecification implements Serializable {
     status = ProductSpecificationStatusKind.COMMITTED;
     return new ProductSpecificationMessages.Commit.Response(
       Arrays.asList(
-        new ProductSpecificationEvents.CommittedEvent(this.id, request.getCommitter().getId()))
+        new ProductSpecificationEvents.CommittedEvent(this.id, request.getCommitterId()))
     );
   }
 

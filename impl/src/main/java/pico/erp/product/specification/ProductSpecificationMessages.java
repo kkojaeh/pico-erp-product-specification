@@ -5,10 +5,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Value;
-import pico.erp.item.ItemData;
+import pico.erp.item.ItemId;
 import pico.erp.product.specification.content.ProductSpecificationContentId;
 import pico.erp.shared.event.Event;
-import pico.erp.user.UserData;
+import pico.erp.user.UserId;
 
 public interface ProductSpecificationMessages {
 
@@ -23,7 +23,7 @@ public interface ProductSpecificationMessages {
 
       @Valid
       @NotNull
-      ItemData item;
+      ItemId itemId;
 
     }
 
@@ -64,7 +64,7 @@ public interface ProductSpecificationMessages {
     class Request {
 
       @NotNull
-      UserData committer;
+      UserId committerId;
 
     }
 

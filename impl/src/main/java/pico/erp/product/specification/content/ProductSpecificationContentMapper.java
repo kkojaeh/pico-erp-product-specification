@@ -36,7 +36,6 @@ public abstract class ProductSpecificationContentMapper {
 
   @Mappings({
     @Mapping(target = "specificationId", source = "specification.id"),
-    @Mapping(target = "committerId", source = "committer.id"),
     @Mapping(target = "createdBy", ignore = true),
     @Mapping(target = "createdDate", ignore = true),
     @Mapping(target = "lastModifiedBy", ignore = true),
@@ -52,8 +51,9 @@ public abstract class ProductSpecificationContentMapper {
       .imageId(entity.getImageId())
       .bluePrintId(entity.getBluePrintId())
       .description(entity.getDescription())
-      .committer(map(entity.getCommitterId()))
+      .committerId(entity.getCommitterId())
       .committedDate(entity.getCommittedDate())
+      .documentId(entity.getDocumentId())
       .build();
   }
 
@@ -78,12 +78,11 @@ public abstract class ProductSpecificationContentMapper {
 
   @Mappings({
     @Mapping(target = "specificationId", source = "specification.id"),
-    @Mapping(target = "committerId", source = "committer.id")
   })
   public abstract ProductSpecificationContentData map(ProductSpecificationContent domain);
 
   @Mappings({
-    @Mapping(target = "committer", source = "committerId")
+    @Mapping(target = "documentId", ignore = true)
   })
   public abstract ProductSpecificationContentMessages.Commit.Request map(
     ProductSpecificationContentRequests.CommitRequest request);

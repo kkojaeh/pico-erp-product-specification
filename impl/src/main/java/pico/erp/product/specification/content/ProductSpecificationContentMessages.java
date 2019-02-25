@@ -8,10 +8,11 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.Value;
 import pico.erp.attachment.AttachmentId;
+import pico.erp.document.DocumentId;
 import pico.erp.product.specification.ProductSpecification;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.event.Event;
-import pico.erp.user.UserData;
+import pico.erp.user.UserId;
 
 public interface ProductSpecificationContentMessages {
 
@@ -71,7 +72,10 @@ public interface ProductSpecificationContentMessages {
     class Request {
 
       @NotNull
-      UserData committer;
+      UserId committerId;
+
+      @NotNull
+      DocumentId documentId;
 
     }
 

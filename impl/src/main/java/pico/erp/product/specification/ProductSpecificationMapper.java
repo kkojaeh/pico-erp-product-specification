@@ -30,7 +30,6 @@ public abstract class ProductSpecificationMapper {
   private ProductSpecificationRepository productSpecificationRepository;
 
   @Mappings({
-    @Mapping(target = "itemId", source = "item.id"),
     @Mapping(target = "createdBy", ignore = true),
     @Mapping(target = "createdDate", ignore = true),
     @Mapping(target = "lastModifiedBy", ignore = true),
@@ -41,7 +40,7 @@ public abstract class ProductSpecificationMapper {
   public ProductSpecification jpa(ProductSpecificationEntity entity) {
     return ProductSpecification.builder()
       .id(entity.getId())
-      .item(map(entity.getItemId()))
+      .itemId(entity.getItemId())
       .status(entity.getStatus())
       .contentId(entity.getContentId())
       .revision(entity.getRevision())
@@ -68,26 +67,15 @@ public abstract class ProductSpecificationMapper {
       .orElse(null);
   }
 
-  @Mappings({
-    @Mapping(target = "itemId", source = "item.id")
-  })
   public abstract ProductSpecificationData map(ProductSpecification domain);
 
-  @Mappings({
-    @Mapping(target = "committer", source = "committerId")
-  })
   public abstract ProductSpecificationMessages.Commit.Request map(
     ProductSpecificationRequests.CommitRequest request);
 
 
-  @Mappings({
-    @Mapping(target = "item", source = "itemId")
-  })
   public abstract ProductSpecificationMessages.Draft.Request map(
     ProductSpecificationRequests.DraftRequest request);
 
-  @Mappings({
-  })
   public abstract ProductSpecificationMessages.NextDraft.Request mapNext(
     ProductSpecificationRequests.DraftRequest request);
 

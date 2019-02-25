@@ -12,9 +12,10 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import pico.erp.attachment.AttachmentId;
+import pico.erp.document.DocumentId;
 import pico.erp.product.specification.ProductSpecification;
 import pico.erp.product.specification.ProductSpecificationStatusKind;
-import pico.erp.user.UserData;
+import pico.erp.user.UserId;
 
 /**
  * 주문 접수
@@ -42,9 +43,11 @@ public class ProductSpecificationContent implements Serializable {
 
   String description;
 
-  UserData committer;
+  UserId committerId;
 
   OffsetDateTime committedDate;
+
+  DocumentId documentId;
 
   public ProductSpecificationContent() {
 
@@ -79,7 +82,8 @@ public class ProductSpecificationContent implements Serializable {
     if (!isCommittable()) {
       throw new ProductSpecificationContentExceptions.CannotCommitException();
     }
-    committer = request.getCommitter();
+    documentId = request.getDocumentId();
+    committerId = request.getCommitterId();
     committedDate = OffsetDateTime.now();
     return new ProductSpecificationContentMessages.Commit.Response(
       Arrays.asList(new ProductSpecificationContentEvents.CommittedEvent(this.id))
@@ -87,7 +91,7 @@ public class ProductSpecificationContent implements Serializable {
   }
 
   public boolean isCommittable() {
-    return committer == null
+    return committerId == null
       && specification.getStatus() == ProductSpecificationStatusKind.COMMITTED;
   }
 
