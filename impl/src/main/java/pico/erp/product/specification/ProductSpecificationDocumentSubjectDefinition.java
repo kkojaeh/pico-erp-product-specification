@@ -16,6 +16,7 @@ import pico.erp.company.CompanyService;
 import pico.erp.document.context.DocumentContextFactory;
 import pico.erp.document.subject.DocumentSubjectDefinition;
 import pico.erp.document.subject.DocumentSubjectId;
+import pico.erp.item.ItemService;
 import pico.erp.process.ProcessService;
 import pico.erp.product.specification.content.ProductSpecificationContentService;
 import pico.erp.product.specification.content.process.ProductSpecificationContentProcessService;
@@ -59,10 +60,13 @@ public class ProductSpecificationDocumentSubjectDefinition implements
   @Autowired
   private AttachmentItemService attachmentItemService;
 
-
   @Lazy
   @Autowired
   private ProcessService processService;
+
+  @Lazy
+  @Autowired
+  private ItemService itemService;
 
 
   @Override
@@ -72,7 +76,6 @@ public class ProductSpecificationDocumentSubjectDefinition implements
     val data = context.getData();
     val spec = productSpecificationService.get(key);
 
-    val owner = companyService.getOwner();
     val content = productSpecificationContentService.get(spec.getContentId());
 
     if (content.getBluePrintId() != null) {
@@ -135,7 +138,8 @@ public class ProductSpecificationDocumentSubjectDefinition implements
       .collect(Collectors.toList());
 
     data.put("content", content);
-    data.put("supplier", processes);
+    data.put("processes", processes);
+    data.put("item", itemService.get(spec.getItemId()));
     return context;
   }
 
