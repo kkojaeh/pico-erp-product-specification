@@ -132,7 +132,7 @@ public class ProductSpecificationDocumentSubjectDefinition implements
       .map(p -> {
         val map = new HashMap<String, Object>();
         map.put("process", processService.get(p.getProcessId()));
-        map.put("properties", p.getProcessInfo().getDisplayProperties());
+        map.put("properties", p.getProcessInfo().getDisplayProperties().entrySet());
         return map;
       })
       .collect(Collectors.toList());
