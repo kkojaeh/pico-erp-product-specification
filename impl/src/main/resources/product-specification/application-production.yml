@@ -12,7 +12,7 @@ spring:
 
 flyway:
   locations: classpath:product-specification/flyway/{vendor}
-  table: flyway_schema_history_production_request
+  table: flyway_schema_history_product_specification
   encoding: UTF-8
   baseline-on-migrate: true
   enabled: true
