@@ -1,7 +1,7 @@
 package pico.erp.product.specification.content;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import javax.persistence.Id;
 import lombok.AccessLevel;
@@ -45,7 +45,7 @@ public class ProductSpecificationContent implements Serializable {
 
   UserId committerId;
 
-  OffsetDateTime committedDate;
+  LocalDateTime committedDate;
 
   DocumentId documentId;
 
@@ -84,7 +84,7 @@ public class ProductSpecificationContent implements Serializable {
     }
     documentId = request.getDocumentId();
     committerId = request.getCommitterId();
-    committedDate = OffsetDateTime.now();
+    committedDate = LocalDateTime.now();
     return new ProductSpecificationContentMessages.Commit.Response(
       Arrays.asList(new ProductSpecificationContentEvents.CommittedEvent(this.id))
     );

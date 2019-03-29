@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.Take;
 import lombok.Getter;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import pico.erp.attachment.item.AttachmentItemRequests;
@@ -20,10 +21,9 @@ import pico.erp.item.ItemService;
 import pico.erp.process.ProcessService;
 import pico.erp.product.specification.content.ProductSpecificationContentService;
 import pico.erp.product.specification.content.process.ProductSpecificationContentProcessService;
-import pico.erp.shared.Public;
 import pico.erp.shared.data.ContentInputStream;
 
-@Public
+@Give
 @Component
 public class ProductSpecificationDocumentSubjectDefinition implements
   DocumentSubjectDefinition<ProductSpecificationId, Object> {
@@ -36,36 +36,28 @@ public class ProductSpecificationDocumentSubjectDefinition implements
   @Getter
   String name = "[product-specification] 제품 사양서";
 
-  @Lazy
-  @Autowired
+  @Take
   private DocumentContextFactory contextFactory;
 
-  @Lazy
-  @Autowired
+  @Take
   private CompanyService companyService;
 
-  @Lazy
   @Autowired
   private ProductSpecificationContentProcessService productSpecificationContentProcessService;
 
-  @Lazy
   @Autowired
   private ProductSpecificationService productSpecificationService;
 
-  @Lazy
   @Autowired
   private ProductSpecificationContentService productSpecificationContentService;
 
-  @Lazy
-  @Autowired
+  @Take
   private AttachmentItemService attachmentItemService;
 
-  @Lazy
-  @Autowired
+  @Take
   private ProcessService processService;
 
-  @Lazy
-  @Autowired
+  @Take
   private ItemService itemService;
 
 

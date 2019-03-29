@@ -18,7 +18,7 @@ interface ProductionRequestEntityRepository extends
   boolean exists(@Param("itemId") ItemId itemId);
 
   @Query("SELECT s FROM ProductSpecification s WHERE s.itemId = :itemId")
-  ProductSpecificationEntity findBy(@Param("itemId") ItemId itemId);
+  Optional<ProductSpecificationEntity> findBy(@Param("itemId") ItemId itemId);
 
 }
 
@@ -42,12 +42,12 @@ public class ProductSpecificationRepositoryJpa implements ProductSpecificationRe
 
   @Override
   public void deleteBy(ProductSpecificationId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(ProductSpecificationId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
@@ -57,19 +57,19 @@ public class ProductSpecificationRepositoryJpa implements ProductSpecificationRe
 
   @Override
   public Optional<ProductSpecification> findBy(ProductSpecificationId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
   @Override
   public Optional<ProductSpecification> findBy(ItemId itemId) {
-    return Optional.ofNullable(repository.findBy(itemId))
+    return repository.findBy(itemId)
       .map(mapper::jpa);
   }
 
   @Override
   public void update(ProductSpecification productSpecification) {
-    val entity = repository.findOne(productSpecification.getId());
+    val entity = repository.findById(productSpecification.getId()).get();
     mapper.pass(mapper.jpa(productSpecification), entity);
     repository.save(entity);
   }

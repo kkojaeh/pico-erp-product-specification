@@ -1,23 +1,27 @@
 package pico.erp.product.specification
 
+import kkojaeh.spring.boot.component.SpringBootTestComponent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
+import pico.erp.attachment.AttachmentApplication
+import pico.erp.company.CompanyApplication
+import pico.erp.document.DocumentApplication
+import pico.erp.item.ItemApplication
 import pico.erp.item.ItemId
-import pico.erp.shared.IntegrationConfiguration
+import pico.erp.process.ProcessApplication
+import pico.erp.shared.TestParentApplication
+import pico.erp.user.UserApplication
 import pico.erp.user.UserId
 import spock.lang.Specification
 
-@SpringBootTest(classes = [IntegrationConfiguration])
+@SpringBootTest(classes = [ProductSpecificationApplication, TestConfig])
+@SpringBootTestComponent(parent = TestParentApplication, siblings = [UserApplication, ProcessApplication, ItemApplication, CompanyApplication, DocumentApplication, AttachmentApplication])
 @Transactional
 @Rollback
 @ActiveProfiles("test")
-@Configuration
-@ComponentScan("pico.erp.config")
 class ProductSpecificationServiceSpec extends Specification {
 
   @Autowired

@@ -2,7 +2,7 @@ package pico.erp.product.specification.content;
 
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -82,7 +82,7 @@ public class ProductSpecificationContentEntity implements Serializable {
 
   @CreatedDate
   @Column(updatable = false)
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
   @Embedded
   @AttributeOverrides({
@@ -93,7 +93,7 @@ public class ProductSpecificationContentEntity implements Serializable {
   Auditor lastModifiedBy;
 
   @LastModifiedDate
-  OffsetDateTime lastModifiedDate;
+  LocalDateTime lastModifiedDate;
 
   @Embedded
   @AttributeOverrides({
@@ -102,7 +102,7 @@ public class ProductSpecificationContentEntity implements Serializable {
   UserId committerId;
 
   @Column
-  OffsetDateTime committedDate;
+  LocalDateTime committedDate;
 
   @Lob
   @Column(length = TypeDefinitions.CLOB_LENGTH)
