@@ -1,22 +1,25 @@
-banner:
-  location: classpath:product-specification/banner.txt
-
 spring:
+  jmx:
+    default-domain: product-specification
+  banner:
+    location: classpath:product-specification/banner.txt
   application:
     name: pico-product-specification
   session:
     store-type: NONE
   messages:
-    cache-seconds: 60
     basename: product-specification-messages
     encoding: UTF-8
   datasource:
-    url: ${ORDER_DATASOURCE_URL:${DATASOURCE_URL:jdbc:p6spy:hsqldb:mem:product-specification}}
-    driver-class-name: ${ORDER_DATASOURCE_DRIVER_CLASS_NAME:${DATASOURCE_DRIVER_CLASS_NAME:com.p6spy.engine.spy.P6SpyDriver}}
-    username: ${ORDER_DATASOURCE_USERNAME:${DATASOURCE_USERNAME:as}}
-    password: ${ORDER_DATASOURCE_PASSWORD:${DATASOURCE_PASSWORD:null}}
+    name: product-specification-datasource
+    url: ${PRODUCT_SPECIFICATION_DATASOURCE_URL:${DATASOURCE_URL:jdbc:p6spy:hsqldb:mem:product-specification}}
+    driver-class-name: ${PRODUCT_SPECIFICATION_DATASOURCE_DRIVER_CLASS_NAME:${DATASOURCE_DRIVER_CLASS_NAME:com.p6spy.engine.spy.P6SpyDriver}}
+    username: ${PRODUCT_SPECIFICATION_DATASOURCE_USERNAME:${DATASOURCE_USERNAME:as}}
+    password: ${PRODUCT_SPECIFICATION_DATASOURCE_PASSWORD:${DATASOURCE_PASSWORD:null}}
     hikari:
       maximum-pool-size: 4
+  flyway:
+    enabled: false
   jpa:
     database: HSQL
     hibernate:
@@ -82,6 +85,3 @@ logging:
   level:
     org:
       springframework: INFO
-
-flyway:
-  enabled: false

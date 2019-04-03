@@ -35,23 +35,23 @@ public class ProductSpecificationContentRepositoryJpa implements
 
   @Override
   public void deleteBy(ProductSpecificationContentId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(ProductSpecificationContentId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
   public Optional<ProductSpecificationContent> findBy(ProductSpecificationContentId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
   @Override
   public void update(ProductSpecificationContent productSpecificationContent) {
-    val entity = repository.findOne(productSpecificationContent.getId());
+    val entity = repository.findById(productSpecificationContent.getId()).get();
     mapper.pass(mapper.jpa(productSpecificationContent), entity);
     repository.save(entity);
   }

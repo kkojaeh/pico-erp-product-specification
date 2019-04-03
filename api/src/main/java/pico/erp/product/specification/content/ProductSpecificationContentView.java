@@ -1,6 +1,6 @@
 package pico.erp.product.specification.content;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +21,9 @@ public class ProductSpecificationContentView {
 
   UserId committerId;
 
-  OffsetDateTime committedDate;
+  LocalDateTime committedDate;
 
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
   DocumentId documentId;
 

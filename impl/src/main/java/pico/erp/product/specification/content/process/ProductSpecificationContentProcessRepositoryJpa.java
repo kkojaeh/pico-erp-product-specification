@@ -43,12 +43,12 @@ public class ProductSpecificationContentProcessRepositoryJpa implements
 
   @Override
   public void deleteBy(ProductSpecificationContentProcessId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(ProductSpecificationContentProcessId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
@@ -61,13 +61,13 @@ public class ProductSpecificationContentProcessRepositoryJpa implements
   @Override
   public Optional<ProductSpecificationContentProcess> findBy(
     ProductSpecificationContentProcessId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
   @Override
   public void update(ProductSpecificationContentProcess productSpecificationContentProcess) {
-    val entity = repository.findOne(productSpecificationContentProcess.getId());
+    val entity = repository.findById(productSpecificationContentProcess.getId()).get();
     mapper.pass(mapper.jpa(productSpecificationContentProcess), entity);
     repository.save(entity);
   }

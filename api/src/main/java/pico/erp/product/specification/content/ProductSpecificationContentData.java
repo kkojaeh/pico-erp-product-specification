@@ -1,6 +1,6 @@
 package pico.erp.product.specification.content;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import lombok.Data;
 import pico.erp.attachment.AttachmentId;
 import pico.erp.document.DocumentId;
@@ -24,7 +24,7 @@ public class ProductSpecificationContentData {
 
   UserId committerId;
 
-  OffsetDateTime committedDate;
+  LocalDateTime committedDate;
 
   boolean updatable;
 
