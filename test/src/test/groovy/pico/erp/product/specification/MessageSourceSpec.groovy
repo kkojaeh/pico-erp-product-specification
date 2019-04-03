@@ -8,20 +8,15 @@ import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.attachment.AttachmentApplication
-import pico.erp.company.CompanyApplication
-import pico.erp.document.DocumentApplication
-import pico.erp.item.ItemApplication
-import pico.erp.process.ProcessApplication
+import pico.erp.shared.ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier
 import pico.erp.shared.TestParentApplication
-import pico.erp.user.UserApplication
 import spock.lang.Specification
 
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
 @SpringBootTest(classes = [ProductSpecificationApplication, TestConfig])
-@SpringBootTestComponent(parent = TestParentApplication, siblings = [UserApplication, ProcessApplication, ItemApplication, CompanyApplication, DocumentApplication, AttachmentApplication])
+@SpringBootTestComponent(parent = TestParentApplication, siblingsSupplier = ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier.class)
 @Transactional
 @Rollback
 @ActiveProfiles("test")

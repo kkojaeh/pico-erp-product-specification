@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import kkojaeh.spring.boot.component.Give;
-import kkojaeh.spring.boot.component.Take;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.Getter;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import pico.erp.product.specification.content.ProductSpecificationContentService
 import pico.erp.product.specification.content.process.ProductSpecificationContentProcessService;
 import pico.erp.shared.data.ContentInputStream;
 
-@Give
+@ComponentBean
 @Component
 public class ProductSpecificationDocumentSubjectDefinition implements
   DocumentSubjectDefinition<ProductSpecificationId, Object> {
@@ -36,10 +36,10 @@ public class ProductSpecificationDocumentSubjectDefinition implements
   @Getter
   String name = "[product-specification] 제품 사양서";
 
-  @Take
+  @ComponentAutowired
   private DocumentContextFactory contextFactory;
 
-  @Take
+  @ComponentAutowired
   private CompanyService companyService;
 
   @Autowired
@@ -51,13 +51,13 @@ public class ProductSpecificationDocumentSubjectDefinition implements
   @Autowired
   private ProductSpecificationContentService productSpecificationContentService;
 
-  @Take
+  @ComponentAutowired
   private AttachmentItemService attachmentItemService;
 
-  @Take
+  @ComponentAutowired
   private ProcessService processService;
 
-  @Take
+  @ComponentAutowired
   private ItemService itemService;
 
 

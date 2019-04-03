@@ -1,7 +1,7 @@
 package pico.erp.product.specification.content;
 
-import kkojaeh.spring.boot.component.Give;
-import kkojaeh.spring.boot.component.Take;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import pico.erp.shared.event.EventPublisher;
 
 @SuppressWarnings("Duplicates")
 @Service
-@Give
+@ComponentBean
 @Transactional
 @Validated
 public class ProductSpecificationContentServiceLogic implements ProductSpecificationContentService {
@@ -31,10 +31,10 @@ public class ProductSpecificationContentServiceLogic implements ProductSpecifica
   @Autowired
   private ProductSpecificationContentMapper mapper;
 
-  @Take
+  @ComponentAutowired
   private DocumentService documentService;
 
-  @Take
+  @ComponentAutowired
   private ItemService itemService;
 
   @Override

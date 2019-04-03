@@ -18,16 +18,16 @@ dependencies {
 
   compile("com.github.kkojaeh.pico-erp-process:test:${processVersion}")
 
-  testCompile("com.github.kkojaeh.pico-erp-user:test:${userVersion}")
+  testRuntime("com.github.kkojaeh.pico-erp-user:test:${userVersion}")
 
-  testCompile("com.github.kkojaeh.pico-erp-item:test:${itemVersion}")
+  testRuntime("com.github.kkojaeh.pico-erp-item:test:${itemVersion}")
 
-  testCompile("com.github.kkojaeh.pico-erp-attachment:test:${attachmentVersion}")
+  testRuntime("com.github.kkojaeh.pico-erp-attachment:test:${attachmentVersion}")
 
-  testCompile("com.github.kkojaeh.pico-erp-process:test:${processVersion}")
+  testRuntime("com.github.kkojaeh.pico-erp-process:test:${processVersion}")
 
-  testCompile("com.github.kkojaeh.pico-erp-company:test:${companyVersion}")
+  testRuntime("com.github.kkojaeh.pico-erp-company:test:${companyVersion}")
 
-  testCompile("com.github.kkojaeh.pico-erp-e-document:test:${documentVersion}")
+  testRuntime("com.github.kkojaeh.pico-erp-e-document:test:${documentVersion}")
 
 }

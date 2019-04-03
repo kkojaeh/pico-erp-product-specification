@@ -6,22 +6,17 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.attachment.AttachmentApplication
-import pico.erp.company.CompanyApplication
-import pico.erp.document.DocumentApplication
-import pico.erp.item.ItemApplication
-import pico.erp.process.ProcessApplication
 import pico.erp.product.specification.ProductSpecificationApplication
 import pico.erp.product.specification.ProductSpecificationId
 import pico.erp.product.specification.ProductSpecificationService
 import pico.erp.product.specification.TestConfig
 import pico.erp.product.specification.content.ProductSpecificationContentService
+import pico.erp.shared.ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier
 import pico.erp.shared.TestParentApplication
-import pico.erp.user.UserApplication
 import spock.lang.Specification
 
 @SpringBootTest(classes = [ProductSpecificationApplication, TestConfig])
-@SpringBootTestComponent(parent = TestParentApplication, siblings = [UserApplication, ProcessApplication, ItemApplication, CompanyApplication, DocumentApplication, AttachmentApplication])
+@SpringBootTestComponent(parent = TestParentApplication, siblingsSupplier = ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier.class)
 @Transactional
 @Rollback
 @ActiveProfiles("test")
